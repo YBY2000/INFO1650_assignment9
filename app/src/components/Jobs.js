@@ -5,7 +5,7 @@ import img1 from '../assets/elephant-1.jpeg'
 import img2 from '../assets/elephant-2.jpeg'
 import img3 from '../assets/elephant-3.jpeg'
 import { useState } from "react";
-import JobCard from './JobCard';
+import DetailCard from './DetailCard';
 import '../css/jobs.css'
 
 
@@ -32,12 +32,12 @@ const Jobs = () => {
     <div>
       <Card title="Join Our Team" content="Explore exciting career opportunities with us." />
 
-      <div className='joblist'>
+      <div className='worklist'>
         {arr.map(e => {
           return (
             <>
               <div>
-                  <JobCard header="Job Opportunities" title={e.title} text={e.text} image={e.image} />
+                <DetailCard header="Job Opportunities" title={e.title} text={e.text} image={e.image} />
               </div>
             </>
 
