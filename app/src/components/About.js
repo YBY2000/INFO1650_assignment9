@@ -1,11 +1,11 @@
 // /app/src/components/About.js
 import React from 'react';
-import Card from './Card';
+import Card from './Util/Card';
 import img1 from '../assets/demo1.png'
 import img2 from '../assets/demo2.png'
 import img3 from '../assets/demo3.png'
 import { useState } from "react";
-import DetailCard from './DetailCard';
+import DetailCard from './Util/DetailCard';
 import '../css/about.css'
 
 const About = () => {

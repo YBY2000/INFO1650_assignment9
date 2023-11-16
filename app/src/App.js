@@ -2,7 +2,7 @@
 // /frontend/src/App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navbar from './components/Util/Navbar';
 import Home from './components/Home';
 import About from './components/About';
 import Jobs from './components/Jobs';
