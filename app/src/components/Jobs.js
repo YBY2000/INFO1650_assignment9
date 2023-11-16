@@ -1,11 +1,11 @@
 // /frontend/src/components/Jobs.js
 import React from 'react';
-import Card from './Card';
+import Card from './Util/Card';
 import img1 from '../assets/elephant-1.jpeg'
 import img2 from '../assets/elephant-2.jpeg'
 import img3 from '../assets/elephant-3.jpeg'
 import { useState } from "react";
-import DetailCard from './DetailCard';
+import DetailCard from './Util/DetailCard';
 import '../css/jobs.css'
 
 

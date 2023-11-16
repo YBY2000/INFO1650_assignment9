@@ -1,6 +1,6 @@
 // /app/src/components/Contact.js
 import React from 'react';
-import Card from './Card';
+import Card from './Util/Card';
 
 const Contact = () => {
   return (
