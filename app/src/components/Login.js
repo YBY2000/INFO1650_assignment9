@@ -1,6 +1,9 @@
 // /frontend/src/components/Login.js
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../css/login.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = ({ onLogin }) => {
   const [fullName, setFullName] = useState('');
@@ -8,19 +11,23 @@ const Login = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [contentVisible, setContentVisible] = useState(true);
 
-  const handleLogin = () => {
-    // Add your login logic here
-    // If login is successful, call the onLogin callback
-    onLogin();
-    // Hide the content after successful login
-    setContentVisible(false);
+  const handleLogin = async () => {
 
-    //   const response = await axios.post('http://localhost:3001/user/login', { email, password });
-    //   console.log(response.data);
-    //   // Redirect or perform actions upon successful login
-    // } catch (error) {
-    //   console.error(error.response.data);
-    // }
+    try {
+      const response = await axios.post('http://localhost:3001/user/login', { email, password });
+      console.log(response.data);
+      // Redirect or perform actions upon successful login
+      // Add your login logic here
+      // If login is successful, call the onLogin callback
+      onLogin();
+      // Hide the content after successful login
+      setContentVisible(false);
+    } catch (error) {
+      console.error(error.response.data);
+      toast.error('Invalid email or password', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   return (
@@ -49,6 +56,9 @@ const Login = ({ onLogin }) => {
               Login
             </button>
           </form>
+
+          {/* ToastContainer for displaying notifications */}
+          <ToastContainer />
         </div>
       )}
 
