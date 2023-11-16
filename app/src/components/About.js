@@ -1,13 +1,18 @@
 // /app/src/components/About.js
 import React from 'react';
 import Card from './Card';
+import Carousel from 'react-bootstrap/Carousel';
+import Demo from '../assets/demo1.png';
 
 const About = () => {
   return (
+    <>
     <div>
-      <h1>About Us</h1>
-      <Card title="Our Story" content="Learn more about our company and history." />
-    </div>
+      <Card title="My workshop" content="Here are my past INFO1650 assignment demo." />
+    
+  </div>
+    </>
+    
   );
 };
 

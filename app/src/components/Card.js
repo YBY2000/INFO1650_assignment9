@@ -1,18 +1,16 @@
 // /frontend/src/components/Card.js
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-const myCard = ({ title, content }) => {
+const myCard = ({header, title, content }) => {
   return (
-    <Card style={{ width: '18rem', marginLeft:"100px"}}>
-      <Card.Header>Featured</Card.Header>
+    <Card style={{ width: '40rem', marginLeft:"100px", textAlign:"center", margin:"0 auto"}}>
+      <Card.Header>{header}</Card.Header>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>
           {content}
         </Card.Text>
-        <Button variant="primary">Go nowhere</Button>
       </Card.Body>
     </Card>
   );

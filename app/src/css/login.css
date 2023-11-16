@@ -1,0 +1,21 @@
+.loginContainer {
+    width: 800px;
+    height: 400px;
+    margin: 0 auto;
+    margin-top: 60px;
+    background-color: burlywood;
+    text-align: center;
+}
+
+label {
+    margin-top: 20px;
+}
+
+.loginBtn {
+    margin-top: 20px;
+}
+
+.introText {
+    text-align: center;
+    margin-top: 300px;
+}
