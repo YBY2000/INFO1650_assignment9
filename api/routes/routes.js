@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt'); 
+const bcrypt = require('bcrypt');
 
 module.exports = (app) => {
     // server routes ===========================================================
@@ -15,13 +15,11 @@ module.exports = (app) => {
             if (!fullName || !email || !password) {
                 return res.status(400).json({ message: 'Please provide all required fields.' });
             }
-            console.log('not empty');
-            
+
             // Email validation
             if (!validateEmail(email)) {
                 return res.status(400).json({ message: 'Invalid email address.' });
             }
-            console.log('email good');
 
             // Full Name validation
             if (fullName.trim() === '') {
@@ -30,7 +28,6 @@ module.exports = (app) => {
             if (!validateFullname(fullName)) {
                 return res.status(400).json({ message: 'Full name can only have empty space and English letters.' });
             }
-            console.log('full name good');
 
             // Password strength validation
             if (!validatePassword(password)) {
@@ -39,17 +36,18 @@ module.exports = (app) => {
                         'Password must be 8 to 15 characters long and include at least one uppercase letter, one lowercase letter, and one number.',
                 });
             }
-            console.log('pwd good');
 
             // Hash the password using bcrypt
-            const hashedPassword = await bcrypt.hash(password, 10);
-            console.log('Origianl Password:', password);
+            console.log(password);
+            // const hashedPassword = await bcrypt.hash(password, 10);
+            // console.log(hashedPassword);
 
             // Create a new user
             const newUser = new User({
                 fullName,
                 email,
-                password: hashedPassword,
+                // password: hashedPassword,
+                password,
             });
 
             // const newUser = new User({ fullName, email, password });
@@ -65,7 +63,7 @@ module.exports = (app) => {
         try {
             const { fullName, password } = req.body;
             // Ensure you don't update email
-            const email = req.body.email; 
+            const email = req.body.email;
 
             const user = await User.findOne({ email });
 
@@ -77,7 +75,7 @@ module.exports = (app) => {
             if (!fullName || !email || !password) {
                 return res.status(400).json({ message: 'Please provide all required fields.' });
             }
-            
+
             // Full Name validation
             if (fullName.trim() === '') {
                 return res.status(400).json({ message: 'Full Name cannot be empty.' });
@@ -95,12 +93,11 @@ module.exports = (app) => {
             }
 
             // Hash the password using bcrypt
-            console.log('Origianl Password:', password);
-            const hashedPassword = await bcrypt.hash(password, 10);
-            console.log('Hashed Password:', hashedPassword);
+            // const hashedPassword = await bcrypt.hash(password, 10);
 
             user.fullName = fullName;
-            user.password = hashedPassword;
+            // user.password = hashedPassword;
+            user.password = password;
             await user.save();
 
             res.json({ message: 'User updated successfully' });
@@ -134,9 +131,37 @@ module.exports = (app) => {
             res.status(500).json({ message: 'Error fetching users' });
         }
     });
+
+
+    // User Login API
+    app.post('/user/login', async (req, res) => {
+        const { email, password } = req.body;
+
+        try {
+            const user = await User.findOne({ email });
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+
+            console.log(password);
+            // const hashedPassword = await bcrypt.hash(password, 10);
+            // console.log(hashedPassword);
+            console.log(user.password);
+            // const passwordMatch = await bcrypt.compare(hashedPassword, user.password);
+            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            if (!passwordMatch) {
+                return res.status(401).json({ error: 'Invalid password' });
+            }
+
+            res.json({ message: 'Login successful' });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
 }
-
-
 // Password validation function
 const validatePassword = (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
